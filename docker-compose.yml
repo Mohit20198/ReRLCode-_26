@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # ── Fleet Manager Orchestrator ────────────────────────────────
+  orchestrator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python -m orchestrator.run
+    environment:
+      - AWS_DEFAULT_REGION=${AWS_REGION:-us-east-1}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+      - MODEL_PATH=${MODEL_PATH:-models/fleet_ppo_final}
+    volumes:
+      - ./models:/app/models
+      - ./config:/app/config
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  # ── Dashboard API (FastAPI) ────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn dashboard.backend.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    environment:
+      - AWS_DEFAULT_REGION=${AWS_REGION:-us-east-1}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    volumes:
+      - ./config:/app/config
+    restart: unless-stopped
+
+  # ── MLflow Tracking Server ────────────────────────────────────
+  mlflow:
+    image: python:3.11-slim
+    command: >
+      sh -c "pip install mlflow && mlflow server
+        --host 0.0.0.0
+        --port 5000
+        --backend-store-uri sqlite:///mlflow.db
+        --default-artifact-root /mlflow/artifacts"
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_data:/mlflow
+    restart: unless-stopped
+
+  # ── Dashboard Frontend (Vite dev server) ──────────────────────
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host"
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./dashboard/frontend:/app
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    restart: unless-stopped
+
+volumes:
+  mlflow_data:

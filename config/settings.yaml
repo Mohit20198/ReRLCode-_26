@@ -1,0 +1,47 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# AWS Fleet Manager — System Configuration
+# ─────────────────────────────────────────────────────────────────────────────
+
+aws:
+  region: us-east-1           # Primary region (change to your region)
+  profile: default             # AWS credentials profile
+  polling_interval_sec: 60     # How often to poll spot prices & metrics
+
+fleet:
+  max_concurrent_jobs: 20      # Hard cap on simultaneous managed jobs
+  min_stay_minutes: 5          # Minimum time on instance before allowing migration
+  circuit_breaker_migrations: 3  # Max migrations in 10 min before pausing automation
+  circuit_breaker_window_min: 10
+
+checkpointing:
+  s3_bucket: fleet-manager-checkpoints   # Override in .env (CHECKPOINT_BUCKET)
+  s3_prefix: checkpoints/
+  emergency_timeout_sec: 90              # Must finish before AWS reclaims
+  max_checkpoint_size_gb: 10            # Warn if state exceeds this
+
+reward:
+  lambda_cost: 3.0             # PRIMARY: cost minimization weight
+  lambda_migration: 1.5        # Overhead penalty weight
+  lambda_interruption: 80.0    # Interruption failure penalty
+  lambda_budget_cap: 200.0     # Hard budget wall penalty
+  lambda_completion: 150.0     # Completion bonus
+  lambda_time_efficiency: 0.5  # Faster = fewer hours billed
+
+training:
+  n_episodes: 10000            # Simulation episodes for offline training
+  history_days: 90             # Days of spot price history to pull
+  eval_freq: 500               # Evaluate policy every N episodes
+  save_freq: 1000              # Save model checkpoint every N episodes
+  model_dir: models/
+
+api:
+  host: 0.0.0.0
+  port: 8000
+  log_level: info
+
+dashboard:
+  ws_heartbeat_sec: 5          # WebSocket ping interval
+
+dynamodb:
+  table_name: fleet-telemetry  # DynamoDB table for time-series telemetry
+  ttl_days: 30                 # Auto-expire records after 30 days

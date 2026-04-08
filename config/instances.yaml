@@ -1,0 +1,319 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Instance Catalog — 30 instance types across compute, memory, GPU & general
+# Fields:
+#   vcpus             : number of vCPUs
+#   ram_gb            : RAM in GB
+#   gpu               : GPU count (0 if none)
+#   gpu_model         : GPU model name (null if none)
+#   on_demand_price   : $/hr (us-east-1 on-demand, approximate)
+#   interruption_rate : low | medium | high  (from AWS Spot Advisor)
+#   family            : compute | memory | gpu | general
+#   azs               : list of AZs typically available in us-east-1
+# ─────────────────────────────────────────────────────────────────────────────
+
+instances:
+
+  # ── General Purpose ───────────────────────────────────────────
+  - type: m6i.large
+    vcpus: 2
+    ram_gb: 8
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.096
+    interruption_rate: low
+    family: general
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: m6i.xlarge
+    vcpus: 4
+    ram_gb: 16
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.192
+    interruption_rate: low
+    family: general
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: m6i.2xlarge
+    vcpus: 8
+    ram_gb: 32
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.384
+    interruption_rate: low
+    family: general
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: m6i.4xlarge
+    vcpus: 16
+    ram_gb: 64
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.768
+    interruption_rate: medium
+    family: general
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: m7g.xlarge
+    vcpus: 4
+    ram_gb: 16
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.163
+    interruption_rate: low
+    family: general
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  # ── Compute Optimized ─────────────────────────────────────────
+  - type: c6i.large
+    vcpus: 2
+    ram_gb: 4
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.085
+    interruption_rate: low
+    family: compute
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: c6i.xlarge
+    vcpus: 4
+    ram_gb: 8
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.170
+    interruption_rate: low
+    family: compute
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: c6i.2xlarge
+    vcpus: 8
+    ram_gb: 16
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.340
+    interruption_rate: low
+    family: compute
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: c6i.4xlarge
+    vcpus: 16
+    ram_gb: 32
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.680
+    interruption_rate: medium
+    family: compute
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: c7g.2xlarge
+    vcpus: 8
+    ram_gb: 16
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.290
+    interruption_rate: low
+    family: compute
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: c6a.4xlarge
+    vcpus: 16
+    ram_gb: 32
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.612
+    interruption_rate: low
+    family: compute
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  # ── Memory Optimized ──────────────────────────────────────────
+  - type: r6i.large
+    vcpus: 2
+    ram_gb: 16
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.126
+    interruption_rate: low
+    family: memory
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: r6i.xlarge
+    vcpus: 4
+    ram_gb: 32
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.252
+    interruption_rate: low
+    family: memory
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: r6i.2xlarge
+    vcpus: 8
+    ram_gb: 64
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.504
+    interruption_rate: low
+    family: memory
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: r6i.4xlarge
+    vcpus: 16
+    ram_gb: 128
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 1.008
+    interruption_rate: medium
+    family: memory
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: r7g.2xlarge
+    vcpus: 8
+    ram_gb: 64
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.421
+    interruption_rate: low
+    family: memory
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: x2idn.16xlarge
+    vcpus: 64
+    ram_gb: 1024
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 6.669
+    interruption_rate: high
+    family: memory
+    azs: [us-east-1a, us-east-1b]
+
+  # ── GPU Instances ─────────────────────────────────────────────
+  - type: g4dn.xlarge
+    vcpus: 4
+    ram_gb: 16
+    gpu: 1
+    gpu_model: T4
+    on_demand_price: 0.526
+    interruption_rate: medium
+    family: gpu
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: g4dn.2xlarge
+    vcpus: 8
+    ram_gb: 32
+    gpu: 1
+    gpu_model: T4
+    on_demand_price: 0.752
+    interruption_rate: medium
+    family: gpu
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: g4dn.4xlarge
+    vcpus: 16
+    ram_gb: 64
+    gpu: 1
+    gpu_model: T4
+    on_demand_price: 1.204
+    interruption_rate: medium
+    family: gpu
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: g4dn.12xlarge
+    vcpus: 48
+    ram_gb: 192
+    gpu: 4
+    gpu_model: T4
+    on_demand_price: 3.912
+    interruption_rate: high
+    family: gpu
+    azs: [us-east-1a, us-east-1b]
+
+  - type: p3.2xlarge
+    vcpus: 8
+    ram_gb: 61
+    gpu: 1
+    gpu_model: V100
+    on_demand_price: 3.06
+    interruption_rate: medium
+    family: gpu
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: p3.8xlarge
+    vcpus: 32
+    ram_gb: 244
+    gpu: 4
+    gpu_model: V100
+    on_demand_price: 12.24
+    interruption_rate: high
+    family: gpu
+    azs: [us-east-1a, us-east-1b]
+
+  - type: p4d.24xlarge
+    vcpus: 96
+    ram_gb: 1152
+    gpu: 8
+    gpu_model: A100
+    on_demand_price: 32.77
+    interruption_rate: high
+    family: gpu
+    azs: [us-east-1a, us-east-1b]
+
+  - type: g5.xlarge
+    vcpus: 4
+    ram_gb: 16
+    gpu: 1
+    gpu_model: A10G
+    on_demand_price: 1.006
+    interruption_rate: medium
+    family: gpu
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: g5.2xlarge
+    vcpus: 8
+    ram_gb: 32
+    gpu: 1
+    gpu_model: A10G
+    on_demand_price: 1.212
+    interruption_rate: medium
+    family: gpu
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: g5.4xlarge
+    vcpus: 16
+    ram_gb: 64
+    gpu: 1
+    gpu_model: A10G
+    on_demand_price: 1.624
+    interruption_rate: medium
+    family: gpu
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  # ── Burstable (T-series) — budget option for light jobs ───────
+  - type: t3.medium
+    vcpus: 2
+    ram_gb: 4
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.0416
+    interruption_rate: low
+    family: general
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: t3.large
+    vcpus: 2
+    ram_gb: 8
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.0832
+    interruption_rate: low
+    family: general
+    azs: [us-east-1a, us-east-1b, us-east-1c]
+
+  - type: t3.xlarge
+    vcpus: 4
+    ram_gb: 16
+    gpu: 0
+    gpu_model: null
+    on_demand_price: 0.1664
+    interruption_rate: low
+    family: general
+    azs: [us-east-1a, us-east-1b, us-east-1c]
